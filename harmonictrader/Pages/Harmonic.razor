@@ -1,0 +1,42 @@
+﻿@page "/"
+@inherits HarmonicBase
+
+<input type="number" class="form-control-lg border border-dark rounded mb-2" placeholder="Enter Retracement Ratio"  @onchange="OnRatioChanged" />
+
+
+@if (Patterns == null)
+{
+    <h1>Loading ...</h1>
+}
+else
+{
+<table class="table  table-hover table-bordered ">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Pattern</th>
+            <th scope="col" class="text-center">B = XA</th>
+            <th scope="col" class="text-center">C = AB</th>
+            <th scope="col" class="text-center">D = BC</th>
+            <th scope="col" class="text-center">XD</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{var count = 1;}
+        @foreach (var p in Patterns)
+        {
+        <tr class="@(@p.IsClosestRatio == true ? "table-success" : "table-light" )">
+            <th scope="row">@count</th>
+            <td class="align-middle">@p.Name</td>
+            <td class="align-middle text-center">@string.Join(" - ", p.XA)</td>
+            <td class="align-middle text-center">@string.Join(" - ", p.AB)</td>
+            <td class="align-middle text-center">@string.Join(" - ", p.BC)</td>
+            <td class="align-middle text-center">@p.XD</td>
+            @*<td class="align-middle text-center">@p.IsClosestRatio</td>*@
+        </tr>
+            count = count + 1;
+        }
+
+    </tbody>
+</table>
+}
